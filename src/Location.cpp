@@ -1,8 +1,13 @@
 #include "Location.hpp"
 
-Location::Location(string pName)
+Location::Location()
 {
-	this->name = pName;
+	this-> name = "NULL";
+}
+
+Location::Location(string p_name)
+{
+	this->name = p_name;
 }
 
 void Location::addNeighbour(Location pNeighbour)
@@ -13,4 +18,9 @@ void Location::addNeighbour(Location pNeighbour)
 vector<Location> Location::getNeighbours()
 {
 	return neighbours;
+}
+
+string Location::getName()
+{
+	return name;
 }

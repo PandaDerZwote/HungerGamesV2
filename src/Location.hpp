@@ -1,10 +1,3 @@
-/*
- * Location.hpp
- *
- *  Created on: 10.07.2017
- *      Author: Jan
- */
-
 #ifndef LOCATION_HPP_
 #define LOCATION_HPP_
 
@@ -19,11 +12,11 @@ private:
 	string name;
 	vector<Location> neighbours;
 public:
-	Location(string name);
+	Location();
+	Location(string p_name);
+	string getName();
 	void addNeighbour(Location pNeighbour);
 	vector<Location> getNeighbours();
 };
-
-void init_Locate();
 
 #endif /* LOCATION_HPP_ */

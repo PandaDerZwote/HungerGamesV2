@@ -1,10 +1,10 @@
 #include "init.hpp"
 
-void init(vector<Location> *world)
+void init(vector<Location> *world, vector<Contestant> *cast)
 {
 	random_init();
-	vector<Location> new_world = location_init();
-	world = &new_world;
+	location_init(world);
+	contestant_init(cast, world);
 }
 
 void random_init()
@@ -12,9 +12,8 @@ void random_init()
 	srand(time(0));
 }
 
-vector<Location> location_init()
+void location_init(vector<Location> *world)
 {
-	vector<Location> world;
 	// Init
 	Location cornucopia("Cornucopia");
 	Location mountain("Mountain");
@@ -49,13 +48,34 @@ vector<Location> location_init()
 	shore.addNeighbour(meadow);
 	shore.addNeighbour(forest_east);
 	// Add to vector
-	world.push_back(cornucopia);
-	world.push_back(mountain);
-	world.push_back(lake);
-	world.push_back(meadow);
-	world.push_back(forest_east);
-	world.push_back(forest_west);
-	world.push_back(shore);
+	world->push_back(cornucopia);
+	world->push_back(mountain);
+	world->push_back(lake);
+	world->push_back(meadow);
+	world->push_back(forest_east);
+	world->push_back(forest_west);
+	world->push_back(shore);
 	// Return
-	return world;
+}
+
+void contestant_init(vector<Contestant> *cast, vector<Location> *world)
+{
+	int cast_size;
+	cout << "Please set cast size." << endl;
+	cin >> cast_size;
+	for (int i = 0; i < cast_size; i++)
+	{
+		string p_name, p_pic_path;
+		cout << "Please insert the name of contestant nr. " << i+1 << "." << endl;
+		cin >> p_name;
+		//cout << "Add a picture? Insert path to picture or type \'n\', if no picture is wanted." << endl;
+		//cin >> p_pic_path;
+		Contestant new_contestant(p_name);
+		/*if (p_pic_path != "n")
+		{
+			new_contestant.addPic(p_pic_path);
+		}*/
+		new_contestant.setLocation(world->at(0));
+		cast->push_back(new_contestant);
+	}
 }

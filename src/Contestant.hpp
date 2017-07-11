@@ -6,31 +6,37 @@
 #include "Item.hpp"
 #include "Weapon.hpp"
 #include <iostream>
+#include "Location.hpp"
 
 using namespace std;
 
 class Contestant
 {
 private:
-	string name, picPath;
+	string name, pic_path;
 	int health;
 	Weapon weapon;
 	vector<Item> inventory;
 	bool alive;
+	Location location;
 public:
 	// Setup
-	Contestant(string name);
-	void addPic(string pPicPath);
+	Contestant(string p_name);
+	void addPic (string p_pic_path);
+	string getName();
+	// Location
+	Location getLocation();
+	void setLocation(Location p_location);
 	// Health
 	int getHealth();
-	void setHealth(int pHealth);
+	void setHealth(int p_health);
 	bool checkVital();
 	// Weapon
-	void weaponSet(Weapon nWeapon);
-	Weapon weaponGet();
-	bool weaponCheck();
+	void setWeapon(Weapon n_weapon);
+	Weapon getWeapon();
+	bool checkWeapon();
 	// Combat
-	void combatRound(Contestant *pEnemy);
+	void combatRound(Contestant *p_enemy);
 };
 
 

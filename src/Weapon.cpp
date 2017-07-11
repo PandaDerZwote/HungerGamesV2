@@ -1,10 +1,10 @@
 #include "Weapon.hpp"
 
-Weapon::Weapon(string pName, int pDamage, int pDurability)
+Weapon::Weapon(string p_name, int p_damage, int p_durability)
 {
-	this->name = pName;
-	this->damage = pDamage;
-	this->durability = pDurability;
+	this->name = p_name;
+	this->damage = p_damage;
+	this->durability = p_durability;
 }
 
 Weapon::Weapon()
@@ -28,12 +28,12 @@ bool Weapon::durabilityTest()
 	return true;
 }
 
-string Weapon::nameGet()
+string Weapon::getName()
 {
 	return this->name;
 }
 
-int Weapon::damageGet()
+int Weapon::getDamage()
 {
 	return this->damage;
 }

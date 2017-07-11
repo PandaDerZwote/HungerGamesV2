@@ -19,12 +19,12 @@ private:
 	string name;
 	int damage, durability;
 public:
-	Weapon(string pName, int pDamage, int pDurability);
+	Weapon(string p_name, int p_damage, int p_durability);
 	Weapon();
 	bool durabilityTest();
 	bool nullWeapon();
-	string nameGet();
-	int damageGet();
+	string getName();
+	int getDamage();
 };
 
 
