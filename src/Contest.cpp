@@ -82,7 +82,25 @@ string locationEvent(Contestant *actor)
 {
 	// Declare variables
 	string output;
-	string gender = actor->getGender();
+	string pronoun, pronoun_cap, possesive_pronoun, possesive_pronoun_cap, object_pronoun, object_pronoun_cap;
+	if (actor->getGender() == "m")
+	{
+		pronoun = "he";
+		pronoun_cap = "He";
+		possesive_pronoun = "his";
+		possesive_pronoun_cap = "His";
+		object_pronoun = "him";
+		object_pronoun_cap = "Him";
+	}
+	else
+	{
+		pronoun = "she";
+		pronoun_cap = "She";
+		possesive_pronoun = "her";
+		possesive_pronoun_cap = "Her";
+		object_pronoun = "her";
+		object_pronoun_cap = "Her";
+	}
 	int random = setRandom(100);
 	// Declare null objects
 	Location null_location("NULL");
@@ -93,13 +111,13 @@ string locationEvent(Contestant *actor)
 		/*
 		 * Cornucopia EventTable:
 		 * 5% Landmine death
-		 * 56% Find Item
+		 * 35% Find Item
 		 * 10% flavour
-		 * 29% Nothing
+		 * 50% Nothing
 		 */
 		if (random > 5)
 		{
-			if (random > 61)
+			if (random > 40)
 			{
 				if(random > 90)
 				{
@@ -123,87 +141,54 @@ string locationEvent(Contestant *actor)
 			}
 			else
 			{
-				output.append(actor->getName() + " searches the cornucopia for supplies and found ");
-				if (random > 3)
+				Weapon retrieved_weapon = acquireWeapon();
+				if (retrieved_weapon.getName() != "NULL")
 				{
-					Weapon retrieved_weapon = acquireWeapon();
-					if (retrieved_weapon.getName() != "NULL")
+					if (retrieved_weapon.getDamage() > actor->getWeapon().getDamage())
 					{
-						output.append("a(n) " + retrieved_weapon.getName() + ".");
-						if (gender == "m")
+						if (actor->getWeapon().getName() != "NULL")
 						{
-							output.append(" He decided to ");
+							output.append(actor->getName() + " searches the cornucopia for supplies and finds a(n) " + retrieved_weapon.getName() + ". " + pronoun_cap + " decides to equip it, throwing away " + possesive_pronoun + " " + actor->getWeapon().getName() + ".");
+							actor->setActionPoints(0);
+							actor->setWeapon(retrieved_weapon);
 						}
 						else
 						{
-							output.append(" She decided to ");
-						}
-						if (retrieved_weapon.getDamage() > actor->getWeapon().getDamage())
-						{
-							output.append("equip it");
-							if (actor->getWeapon().getName() != "NULL")
-							{
-								output.append(" throwing away ");
-								if (gender == "m")
-								{
-									output.append("his ");
-								}
-								else
-								{
-									output.append("her ");
-
-								}
-								output.append(actor->getWeapon().getName() + ".");
-								actor->setActionPoints(0);
-								actor->setWeapon(retrieved_weapon);
-							}
-							else
-							{
-								output.append(".");
-								actor->setActionPoints(0);
-							}
-						}
-						else
-						{
-							output.append("keep ");
-							if (gender == "m")
-							{
-								output.append("his ");
-							}
-							else
-							{
-								output.append("her ");
-							}
-							output.append(actor->getWeapon().getName() + ".");
+							output.append(actor->getName() + " searches the cornucopia for supplies and finds a(n) " + retrieved_weapon.getName() + ". " + pronoun_cap + " decides to equip it.");
 							actor->setActionPoints(0);
 						}
 					}
 					else
 					{
-						output.append("nothing.");
+						output.append(actor->getName() + " searches the cornucopia for supplies and finds a(n) " + retrieved_weapon.getName() + ". " + pronoun_cap + " decides to keep " + possesive_pronoun + " " + actor->getWeapon().getName() + ".");
 						actor->setActionPoints(0);
 					}
+				}
+				else
+				{
+					output.append(actor->getName() + " searches the cornucopia for supplies and finds nothing.");
+					actor->setActionPoints(0);
 				}
 			}
 		}
 		else
 		{
-			output.append(actor->getName() + " stepped on a landmine");
+
 			int randomLandmine = setRandom(5);
 			switch (randomLandmine)
 			{
 			case 1:
 			case 2:
 			case 3:
-				output.append("!");
+				output.append(actor->getName() + " stepped on a landmine!");
 				actor->setActionPoints(0);
 				break;
 			case 4:
-				output.append(" and splatters!");
+				output.append(actor->getName() + " stepped on a landmine and splatters!");
 				actor->setActionPoints(0);
 				break;
 			case 5:
-				output.append(" and was annihilated!");
+				output.append(actor->getName() + " stepped on a landmine and was annihilated!");
 				actor->setActionPoints(0);
 			}
 			actor->setHealth(0);
@@ -249,16 +234,7 @@ string locationEvent(Contestant *actor)
 				{
 					if (actor->getWeapon().getName() != "NULL")
 					{
-						output.append(actor->getName() + " lost ");
-						if (actor->getGender() == "m")
-						{
-							output.append("his ");
-						}
-						else
-						{
-							output.append("her ");
-						}
-						output.append("weapon while climbing the mountain!");
+						output.append(actor->getName() + " lost " + possesive_pronoun + " weapon while climbing the mountain!");
 						actor->setActionPoints(0);
 						actor->setWeapon(null_weapon);
 					}
@@ -271,17 +247,7 @@ string locationEvent(Contestant *actor)
 				{
 					if (actor->getWeapon().getName() != "NULL")
 					{
-						output.append(actor->getName() + " found a rock in the mountains ");
-						if (actor->getGender() == "m")
-						{
-							output.append("he drops his " + actor->getWeapon().getName() + " for it.");
-							actor->setActionPoints(0);
-						}
-						else
-						{
-							output.append("she drops her " + actor->getWeapon().getName() + " for it.");
-							actor->setActionPoints(0);
-						}
+						output.append(actor->getName() + " found a rock in the mountains " + pronoun + " drops " + possesive_pronoun + " " + actor->getWeapon().getName() + " for it.");
 						actor->setWeapon(stone);
 					}
 					else
@@ -295,45 +261,43 @@ string locationEvent(Contestant *actor)
 		}
 		else
 		{
-			output.append(actor->getName() + " falls of a cliff");
 			int randomMountain = setRandom(5);
 			switch (randomMountain)
 			{
 			case 1:
-				output.append("!");
+				output.append(actor->getName() + " falls of a cliff!");
 				actor->setActionPoints(0);
 				actor->setHealth(0);
 				actor->setLocation(null_location);
 				break;
 			case 2:
-				output.append(" instantly dying on impact!");
+				output.append(actor->getName() + " falls of a cliff instantly dying on impact!");
 				actor->setActionPoints(0);
 				actor->setHealth(0);
 				actor->setLocation(null_location);
 				break;
 			case 3:
-				output.append(" dying after hours of agony!");
+				output.append(actor->getName() + " falls of a cliff dying after hours of agony!");
 				actor->setActionPoints(0);
 				actor->setHealth(0);
 				actor->setLocation(null_location);
 				break;
 			case 4:
-				output.append(" and is injured");
 				actor->setHealth(actor->getHealth() - 2);
 				if (actor->checkVital())
 				{
-					output.append(" but survives!");
+					output.append(actor->getName() + " falls of a cliff and is injured but survives!");
 					actor->setActionPoints(0);
 				}
 				else
 				{
-					output.append(" dying from the injuries!");
+					output.append(actor->getName() + " falls of a cliff and dies from the injuries!");
 					actor->setActionPoints(0);
 					actor->setLocation(null_location);
 				}
 				break;
 			case 5:
-				output.append(" but survives completetly unharmed!");
+				output.append(actor->getName() + " falls of a cliff but survives completetly unharmed!");
 				actor->setActionPoints(0);
 				break;
 			}
@@ -375,16 +339,7 @@ string locationEvent(Contestant *actor)
 			{
 				if (actor->getWeapon().getName() != "NULL")
 				{
-					output.append(actor->getName() + " lost ");
-					if (actor->getGender() == "m")
-					{
-						output.append("his ");
-					}
-					else
-					{
-						output.append("her ");
-					}
-					output.append("weapon while swimming in the lake!");
+					output.append(actor->getName() + " lost " + possesive_pronoun + " weapon while swimming in the lake!");
 					actor->setActionPoints(0);
 					actor->setWeapon(null_weapon);
 				}
@@ -434,17 +389,16 @@ string locationEvent(Contestant *actor)
 			{
 				if (actor->getHealth() < 5)
 				{
-					output.append(actor->getName() + " receives medical aid from an unknown sponsor ");
-					if (actor->getHealth() + 2 > 5)
+					if (actor->getHealth() + 2 >= 5)
 					{
 						actor->setHealth(5);
-						output.append(" and fully recovered!");
+						output.append(actor->getName() + " receives medical aid from an unknown sponsor and fully recovered!");
 						actor->setActionPoints(0);
 					}
 					else
 					{
 						actor->setHealth(actor->getHealth() + 2);
-						output.append(".");
+						output.append(actor->getName() + " receives medical aid from an unknown sponsor.");
 						actor->setActionPoints(0);
 					}
 				}
@@ -452,70 +406,32 @@ string locationEvent(Contestant *actor)
 		}
 		else
 		{
-			output.append(actor->getName() + " was bitten by a snake! ");
 			int snake_random = setRandom(5);
 			switch (snake_random)
 			{
 			case 1:
 			case 2:
 			case 3:
-				output.append(" The snake was venomous and ");
-				if (actor->getGender() == "m")
-				{
-					output.append("he ");
-				}
-				else
-				{
-					output.append("she ");
-				}
-				output.append("died!");
+				output.append(actor->getName() + " was bitten by a snake! The snake was venomous and " + pronoun + " died!");
 				actor->setActionPoints(0);
 				actor->setHealth(0);
 				actor->setLocation(null_location);
 				break;
 			case 4:
-				output.append(" Venom flows through ");
-				if (actor->getGender() == "m")
-				{
-					output.append("his ");
-				}
-				else
-				{
-					output.append("her ");
-				}
-				output.append("body");
 				actor->setHealth(actor->getHealth() - 2);
 				if (actor->checkVital())
 				{
-					output.append(", but ");
-					if (actor->getGender() == "m")
-					{
-						output.append("he ");
-					}
-					else
-					{
-						output.append("she ");
-					}
-					output.append("survives!");
+					output.append(actor->getName() + " was bitten by a snake! Venom flows through " + possesive_pronoun + " body, but " + pronoun + " survives!");
 					actor->setActionPoints(0);
 				}
 				else
 				{
-					output.append(" killing ");
-					if (actor->getGender() == "m")
-					{
-						output.append("him ");
-					}
-					else
-					{
-						output.append("her ");
-					}
-					output.append("slowly and painfully!");
+					output.append(actor->getName() + " was bitten by a snake! Venom flows through " + possesive_pronoun + " body, killing " + object_pronoun + " slowly and painfully!");
 					actor->setActionPoints(0);
 				}
 				break;
 			case 5:
-				output.append("Nothing happened.");
+				output.append(actor->getName() + " was bitten by a snake! Nothing happened.");
 				actor->setActionPoints(0);
 				break;
 			}

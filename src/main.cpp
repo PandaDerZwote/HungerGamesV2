@@ -27,7 +27,7 @@ int main()
 		{
 			if (cast[i].checkVital())
 			{
-				string output;
+				string output = "";
 				// Test if last survivor
 				bool last_survivor = true;
 				for (unsigned int j = 0; j < cast.size(); j++)
@@ -51,7 +51,10 @@ int main()
 					//insert combat
 					//insert retreat
 				}
-				cout << output << endl;
+				if (output != "")
+				{
+					cout << output << endl;
+				}
 			}
 		}
 		/*string input;
