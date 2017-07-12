@@ -7,6 +7,7 @@ Contestant::Contestant(string p_name)
 	alive = true;
 	Location start("blank");
 	this->location = start;
+	gender = "m";
 }
 
 void Contestant::addPic(string p_pic_path)
@@ -29,6 +30,18 @@ Location Contestant::getLocation()
 void Contestant::setLocation(Location p_location)
 {
 	this->location = p_location;
+}
+
+// Gender
+
+string Contestant::getGender()
+{
+	return this->gender;
+}
+
+void Contestant::setGender(string p_gender)
+{
+	this->gender = p_gender;
 }
 
 // Weapon

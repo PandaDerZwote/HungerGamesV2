@@ -17,4 +17,6 @@ void locationSwap(Contestant *actor, vector<Location> world);
 
 void locationEvent(Contestant *actor);
 
+Weapon acquireWeapon();
+
 #endif /* CONTEST_HPP_ */

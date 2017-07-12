@@ -9,6 +9,7 @@ using namespace std;
 class Location
 {
 private:
+	int id;
 	string name;
 	vector<Location> neighbours;
 public:
@@ -17,6 +18,8 @@ public:
 	string getName();
 	void addNeighbour(Location pNeighbour);
 	vector<Location> getNeighbours();
+	void setId(int p_id);
+	int getId();
 };
 
 #endif /* LOCATION_HPP_ */

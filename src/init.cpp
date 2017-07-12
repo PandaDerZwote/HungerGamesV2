@@ -15,13 +15,21 @@ void random_init()
 void location_init(vector<Location> *world)
 {
 	// Init
-	Location cornucopia("Cornucopia");
-	Location mountain("Mountain");
-	Location lake("Lake");
-	Location meadow("Meadow");
-	Location forest_east("Eastern Forest");
-	Location forest_west("Western Forest");
-	Location shore("Shore");
+	Location cornucopia("cornucopia");
+	Location mountain("mountain");
+	Location lake("lake");
+	Location meadow("meadow");
+	Location forest_east("eastern forest");
+	Location forest_west("western forest");
+	Location shore("shore");
+	// Set ID
+	cornucopia.setId(1);
+	mountain.setId(2);
+	lake.setId(3);
+	meadow.setId(4);
+	forest_east.setId(5);
+	forest_west.setId(6);
+	shore.setId(7);
 	// Set nodes
 	cornucopia.addNeighbour(mountain);
 	cornucopia.addNeighbour(lake);
@@ -65,9 +73,15 @@ void contestant_init(vector<Contestant> *cast, vector<Location> *world)
 	cin >> cast_size;
 	for (int i = 0; i < cast_size; i++)
 	{
-		string p_name, p_pic_path;
+		string p_name, p_pic_path, p_gender;
 		cout << "Please insert the name of contestant nr. " << i+1 << "." << endl;
 		cin >> p_name;
+		cout << "m or w?" << endl;
+		cin >> p_gender;
+		if (p_gender != "m" && p_gender != "w")
+		{
+			p_gender = "m";
+		}
 		//cout << "Add a picture? Insert path to picture or type \'n\', if no picture is wanted." << endl;
 		//cin >> p_pic_path;
 		Contestant new_contestant(p_name);
@@ -76,6 +90,7 @@ void contestant_init(vector<Contestant> *cast, vector<Location> *world)
 			new_contestant.addPic(p_pic_path);
 		}*/
 		new_contestant.setLocation(world->at(0));
+		new_contestant.setGender(p_gender);
 		cast->push_back(new_contestant);
 	}
 }

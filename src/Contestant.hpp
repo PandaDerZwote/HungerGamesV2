@@ -13,7 +13,7 @@ using namespace std;
 class Contestant
 {
 private:
-	string name, pic_path;
+	string name, pic_path, gender;
 	int health;
 	Weapon weapon;
 	vector<Item> inventory;
@@ -27,6 +27,9 @@ public:
 	// Location
 	Location getLocation();
 	void setLocation(Location p_location);
+	// Gender
+	string getGender();
+	void setGender(string p_gender);
 	// Health
 	int getHealth();
 	void setHealth(int p_health);
