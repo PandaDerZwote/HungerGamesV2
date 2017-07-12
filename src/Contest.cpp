@@ -78,10 +78,13 @@ void locationSwap(Contestant *actor, vector<Location> world)
 
 }
 
-void locationEvent(Contestant *actor)
+string locationEvent(Contestant *actor)
 {
+	// Declare variables
+	string output;
 	string gender = actor->getGender();
 	int random = setRandom(100);
+	// Declare null objects
 	Location null_location("NULL");
 	Weapon null_weapon("NULL", 0, 0);
 	switch (actor->getLocation().getId())
@@ -104,93 +107,104 @@ void locationEvent(Contestant *actor)
 					switch (flavour_corn)
 					{
 					case 1:
-						cout << actor->getName() << " is casually looking around at the cornucopia." << endl;
+						output.append(actor->getName() + " is casually looking around at the cornucopia.");
+						actor->setActionPoints(0);
 						break;
 					case 2:
-						cout << actor->getName() << " is crying in despair." << endl;
+						output.append(actor->getName() + " is crying in despair.");
+						actor->setActionPoints(0);
 						break;
 					case 3:
-						cout << actor->getName() << " is cursing everyone responsible for the Hunger Games." << endl;
+						output.append(actor->getName() + " is cursing everyone responsible for the Hunger Games.");
+						actor->setActionPoints(0);
 						break;
 					}
 				}
 			}
 			else
 			{
-				cout << actor->getName() << " searches the cornucopia for supplies and found ";
+				output.append(actor->getName() + " searches the cornucopia for supplies and found ");
 				if (random > 3)
 				{
 					Weapon retrieved_weapon = acquireWeapon();
 					if (retrieved_weapon.getName() != "NULL")
 					{
-						cout << "a(n) " << retrieved_weapon.getName() << ".";
+						output.append("a(n) " + retrieved_weapon.getName() + ".");
 						if (gender == "m")
 						{
-							cout << " He decided to ";
+							output.append(" He decided to ");
 						}
 						else
 						{
-							cout << " She decided to ";
+							output.append(" She decided to ");
 						}
 						if (retrieved_weapon.getDamage() > actor->getWeapon().getDamage())
 						{
-							cout << "equip it";
+							output.append("equip it");
 							if (actor->getWeapon().getName() != "NULL")
 							{
-								cout << " throwing away ";
+								output.append(" throwing away ");
 								if (gender == "m")
 								{
-									cout << "his ";
+									output.append("his ");
 								}
 								else
 								{
-									cout << "her ";
+									output.append("her ");
+
 								}
-								cout << actor->getWeapon().getName() << "." << endl;
+								output.append(actor->getWeapon().getName() + ".");
+								actor->setActionPoints(0);
 								actor->setWeapon(retrieved_weapon);
 							}
 							else
 							{
-								cout << "." << endl;
+								output.append(".");
+								actor->setActionPoints(0);
 							}
 						}
 						else
 						{
-							cout << "keep ";
+							output.append("keep ");
 							if (gender == "m")
 							{
-								cout << "his ";
+								output.append("his ");
 							}
 							else
 							{
-								cout << "her ";
+								output.append("her ");
 							}
-							cout << actor->getWeapon().getName() << "." << endl;
+							output.append(actor->getWeapon().getName() + ".");
+							actor->setActionPoints(0);
 						}
 					}
 					else
 					{
-						cout << "nothing." << endl;
+						output.append("nothing.");
+						actor->setActionPoints(0);
 					}
 				}
 			}
 		}
 		else
 		{
-			cout << actor->getName() << " stepped on a landmine";
+			output.append(actor->getName() + " stepped on a landmine");
 			int randomLandmine = setRandom(5);
 			switch (randomLandmine)
 			{
 			case 1:
 			case 2:
 			case 3:
-				cout << "!" << endl;
+				output.append("!");
+				actor->setActionPoints(0);
 				break;
 			case 4:
-				cout << " and splatters!" << endl;
+				output.append(" and splatters!");
+				actor->setActionPoints(0);
 				break;
 			case 5:
-				cout << " and was annihilated!" << endl;
+				output.append(" and was annihilated!");
+				actor->setActionPoints(0);
 			}
 			actor->setHealth(0);
 			actor->setLocation(null_location);
@@ -217,13 +231,16 @@ void locationEvent(Contestant *actor)
 						switch (flavour_mountain)
 						{
 						case 1:
-							cout << actor->getName() << " is climbing in the mountains" << endl;
+							output.append(actor->getName() + " is climbing in the mountains");
+							actor->setActionPoints(0);
 							break;
 						case 2:
-							cout << actor->getName() << " is hiking in the mountains" << endl;
+							output.append(actor->getName() + " is hiking in the mountains");
+							actor->setActionPoints(0);
 							break;
 						case 3:
-							cout << actor->getName() << " is sitting on top of the mountains, watching over the arena." << endl;
+							output.append(actor->getName() + " is sitting on top of the mountains, watching over the arena.");
+							actor->setActionPoints(0);
 							break;
 						}
 					}
@@ -232,16 +249,17 @@ void locationEvent(Contestant *actor)
 				{
 					if (actor->getWeapon().getName() != "NULL")
 					{
-						cout << actor->getName() << " lost ";
+						output.append(actor->getName() + " lost ");
 						if (actor->getGender() == "m")
 						{
-							cout << "his ";
+							output.append("his ");
 						}
 						else
 						{
-							cout << "her ";
+							output.append("her ");
 						}
-						cout << "weapon while climbing the mountain!" << endl;
+						output.append("weapon while climbing the mountain!");
+						actor->setActionPoints(0);
 						actor->setWeapon(null_weapon);
 					}
 				}
@@ -253,20 +271,23 @@ void locationEvent(Contestant *actor)
 				{
 					if (actor->getWeapon().getName() != "NULL")
 					{
-						cout << actor->getName() << " found a rock in the mountains ";
+						output.append(actor->getName() + " found a rock in the mountains ");
 						if (actor->getGender() == "m")
 						{
-							cout << "he drops his " << actor->getWeapon().getName() << " for it." << endl;
+							output.append("he drops his " + actor->getWeapon().getName() + " for it.");
+							actor->setActionPoints(0);
 						}
 						else
 						{
-							cout << "she drops her " << actor->getWeapon().getName() << " for it." << endl;
+							output.append("she drops her " + actor->getWeapon().getName() + " for it.");
+							actor->setActionPoints(0);
 						}
 						actor->setWeapon(stone);
 					}
 					else
 					{
-						cout << actor->getName() << " found a rock in the mountains and is now using it as a weapon." << endl;
+						output.append(actor->getName() + " found a rock in the mountains and is now using it as a weapon.");
+						actor->setActionPoints(0);
 						actor->setWeapon(stone);
 					}
 				}
@@ -274,40 +295,46 @@ void locationEvent(Contestant *actor)
 		}
 		else
 		{
-			cout << actor->getName() << " falls of a cliff";
+			output.append(actor->getName() + " falls of a cliff");
 			int randomMountain = setRandom(5);
 			switch (randomMountain)
 			{
 			case 1:
-				cout << "!" << endl;
+				output.append("!");
+				actor->setActionPoints(0);
 				actor->setHealth(0);
 				actor->setLocation(null_location);
 				break;
 			case 2:
-				cout << " instantly dying on impact!" << endl;
+				output.append(" instantly dying on impact!");
+				actor->setActionPoints(0);
 				actor->setHealth(0);
 				actor->setLocation(null_location);
 				break;
 			case 3:
-				cout << " dying after hours of agony!" << endl;
+				output.append(" dying after hours of agony!");
+				actor->setActionPoints(0);
 				actor->setHealth(0);
 				actor->setLocation(null_location);
 				break;
 			case 4:
-				cout << " and is injured";
+				output.append(" and is injured");
 				actor->setHealth(actor->getHealth() - 2);
 				if (actor->checkVital())
 				{
-					cout << " but survives!" << endl;
+					output.append(" but survives!");
+					actor->setActionPoints(0);
 				}
 				else
 				{
-					cout << " dying from the injuries!" << endl;
+					output.append(" dying from the injuries!");
+					actor->setActionPoints(0);
 					actor->setLocation(null_location);
 				}
 				break;
 			case 5:
-				cout << " but survives completetly unharmed!" << endl;
+				output.append(" but survives completetly unharmed!");
+				actor->setActionPoints(0);
 				break;
 			}
 		}
@@ -330,13 +357,16 @@ void locationEvent(Contestant *actor)
 					switch (flavour_lake)
 					{
 					case 1:
-						cout << actor->getName() << " is fishing at the lake." << endl;
+						output.append(actor->getName() + " is fishing at the lake.");
+						actor->setActionPoints(0);
 						break;
 					case 2:
-						cout << actor->getName() << " is bathing in the lake." << endl;
+						output.append(actor->getName() + " is bathing in the lake.");
+						actor->setActionPoints(0);
 						break;
 					case 3:
-						cout << actor->getName() << " is sitting near the lake, pondering about the games." << endl;
+						output.append(actor->getName() + " is sitting near the lake, pondering about the games.");
+						actor->setActionPoints(0);
 						break;
 					}
 				}
@@ -345,23 +375,25 @@ void locationEvent(Contestant *actor)
 			{
 				if (actor->getWeapon().getName() != "NULL")
 				{
-					cout << actor->getName() << " lost ";
+					output.append(actor->getName() + " lost ");
 					if (actor->getGender() == "m")
 					{
-						cout << "his ";
+						output.append("his ");
 					}
 					else
 					{
-						cout << "her ";
+						output.append("her ");
 					}
-					cout << "weapon while swimming in the lake!" << endl;
+					output.append("weapon while swimming in the lake!");
+					actor->setActionPoints(0);
 					actor->setWeapon(null_weapon);
 				}
 			}
 		}
 		else
 		{
-			cout << actor->getName() << " drowned in the lake!" << endl;
+			output.append(actor->getName() + " drowned in the lake!");
+			actor->setActionPoints(0);
 			actor->setHealth(0);
 			actor->setLocation(null_location);
 		}
@@ -384,13 +416,16 @@ void locationEvent(Contestant *actor)
 					switch (flavour_meadow)
 					{
 					case 1:
-						cout << actor->getName() << " is aimlessly running around the meadows." << endl;
+						output.append(actor->getName() + " is aimlessly running around the meadows.");
+						actor->setActionPoints(0);
 						break;
 					case 2:
-						cout << actor->getName() << " is hunting in the meadows." << endl;
+						output.append(actor->getName() + " is hunting in the meadows.");
+						actor->setActionPoints(0);
 						break;
 					case 3:
-						cout << actor->getName() << " has started a campfire." << endl;
+						output.append(actor->getName() + " has started a campfire.");
+						actor->setActionPoints(0);
 						break;
 					}
 				}
@@ -399,83 +434,89 @@ void locationEvent(Contestant *actor)
 			{
 				if (actor->getHealth() < 5)
 				{
-					cout << actor->getName() << " receives medical aid from an unknown sponsor ";
+					output.append(actor->getName() + " receives medical aid from an unknown sponsor ");
 					if (actor->getHealth() + 2 > 5)
 					{
 						actor->setHealth(5);
-						cout << " and fully recovered!" << endl;
+						output.append(" and fully recovered!");
+						actor->setActionPoints(0);
 					}
 					else
 					{
 						actor->setHealth(actor->getHealth() + 2);
-						cout << "." << endl;
+						output.append(".");
+						actor->setActionPoints(0);
 					}
 				}
 			}
 		}
 		else
 		{
-			cout << actor->getName() << " was bitten by a snake. ";
+			output.append(actor->getName() + " was bitten by a snake! ");
 			int snake_random = setRandom(5);
 			switch (snake_random)
 			{
 			case 1:
 			case 2:
 			case 3:
-				cout << " The snake was venomous and ";
+				output.append(" The snake was venomous and ");
 				if (actor->getGender() == "m")
 				{
-					cout << "he ";
+					output.append("he ");
 				}
 				else
 				{
-					cout << "she ";
+					output.append("she ");
 				}
-				cout << "died!" << endl;
+				output.append("died!");
+				actor->setActionPoints(0);
 				actor->setHealth(0);
 				actor->setLocation(null_location);
 				break;
 			case 4:
-				cout << " Venom flows through ";
+				output.append(" Venom flows through ");
 				if (actor->getGender() == "m")
 				{
-					cout << "his ";
+					output.append("his ");
 				}
 				else
 				{
-					cout << "her ";
+					output.append("her ");
 				}
-				cout << "body";
+				output.append("body");
 				actor->setHealth(actor->getHealth() - 2);
 				if (actor->checkVital())
 				{
-					cout << ", but ";
+					output.append(", but ");
 					if (actor->getGender() == "m")
 					{
-						cout << "he ";
+						output.append("he ");
 					}
 					else
 					{
-						cout << "she ";
+						output.append("she ");
 					}
-					cout << "survives!";
+					output.append("survives!");
+					actor->setActionPoints(0);
 				}
 				else
 				{
-					cout << "killing ";
+					output.append(" killing ");
 					if (actor->getGender() == "m")
 					{
-						cout << "him ";
+						output.append("him ");
 					}
 					else
 					{
-						cout << "her ";
+						output.append("her ");
 					}
-					cout << "slowly and painfully!" << endl;
+					output.append("slowly and painfully!");
+					actor->setActionPoints(0);
 				}
 				break;
 			case 5:
-				cout << "Nothing happened." << endl;
+				output.append("Nothing happened.");
+				actor->setActionPoints(0);
 				break;
 			}
 		}
@@ -487,6 +528,7 @@ void locationEvent(Contestant *actor)
 	case 7:
 		break;
 	}
+	return output;
 }
 
 Weapon acquireWeapon()

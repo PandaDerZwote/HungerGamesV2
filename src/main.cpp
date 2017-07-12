@@ -27,6 +27,7 @@ int main()
 		{
 			if (cast[i].checkVital())
 			{
+				string output;
 				// Test if last survivor
 				bool last_survivor = true;
 				for (unsigned int j = 0; j < cast.size(); j++)
@@ -43,13 +44,14 @@ int main()
 				// Turn
 				//insert items
 				locationSwap(&cast[i], world);
-				locationEvent(&cast[i]);
-				if (cast[i].checkVital())
+				output = locationEvent(&cast[i]);
+				if (cast[i].checkVital() && cast[i].getActionPoints() == 1)
 				{
 					//insert interaction
 					//insert combat
 					//insert retreat
 				}
+				cout << output << endl;
 			}
 		}
 		/*string input;
@@ -59,8 +61,10 @@ int main()
 		cout << endl;
 		day++;
 		survivors.clear();
+		// Check survivors and refresh Action Points.
 		for (unsigned int i = 0; i < cast.size(); i++)
 		{
+			cast[i].setActionPoints(1);
 			if (cast[i].checkVital())
 			{
 				survivors.push_back(cast[i]);

@@ -14,32 +14,35 @@ class Contestant
 {
 private:
 	string name, pic_path, gender;
-	int health;
+	int health, action_points;
 	Weapon weapon;
 	vector<Item> inventory;
 	bool alive;
 	Location location;
 public:
 	// Setup
-	Contestant(string p_name);
-	void addPic (string p_pic_path);
+	Contestant(string);
+	void addPic (string);
 	string getName();
 	// Location
 	Location getLocation();
-	void setLocation(Location p_location);
+	void setLocation(Location);
 	// Gender
 	string getGender();
-	void setGender(string p_gender);
+	void setGender(string);
 	// Health
 	int getHealth();
-	void setHealth(int p_health);
+	void setHealth(int);
 	bool checkVital();
+	// Action Points
+	int getActionPoints();
+	void setActionPoints(int);
 	// Weapon
-	void setWeapon(Weapon n_weapon);
+	void setWeapon(Weapon);
 	Weapon getWeapon();
 	bool checkWeapon();
 	// Combat
-	void combatRound(Contestant *p_enemy);
+	void combatRound(Contestant*);
 };
 
 

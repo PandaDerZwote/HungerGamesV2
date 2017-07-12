@@ -15,7 +15,7 @@ void setup(vector<Contestant> *cast);
 
 void locationSwap(Contestant *actor, vector<Location> world);
 
-void locationEvent(Contestant *actor);
+string locationEvent(Contestant *actor);
 
 Weapon acquireWeapon();
 

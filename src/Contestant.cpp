@@ -3,11 +3,12 @@
 Contestant::Contestant(string p_name)
 {
 	this->name = p_name;
-	health = 5;
-	alive = true;
+	this->health = 5;
+	this->alive = true;
 	Location start("blank");
 	this->location = start;
-	gender = "m";
+	this->gender = "m";
+	this->action_points = 1;
 }
 
 void Contestant::addPic(string p_pic_path)
@@ -44,6 +45,41 @@ void Contestant::setGender(string p_gender)
 	this->gender = p_gender;
 }
 
+// Health
+
+int Contestant::getHealth()
+{
+	return this->health;
+}
+
+void Contestant::setHealth(int p_health)
+{
+	this->health = p_health;
+	if (health <= 0)
+	{
+		this->alive = false;
+	}
+}
+
+bool Contestant::checkVital()
+{
+	return this->alive;
+}
+
+// ActionPoints
+
+int Contestant::getActionPoints()
+{
+	return this->action_points;
+}
+
+void Contestant::setActionPoints(int p_action_points)
+{
+	this->action_points = p_action_points;
+}
+
+
+
 // Weapon
 
 void Contestant::setWeapon(Weapon p_weapon)
@@ -65,26 +101,6 @@ bool Contestant::checkWeapon()
 	return true;
 }
 
-// Health
-
-int Contestant::getHealth()
-{
-	return this->health;
-}
-
-void Contestant::setHealth(int p_health)
-{
-	this->health = p_health;
-	if (health <= 0)
-	{
-		this->alive = false;
-	}
-}
-
-bool Contestant::checkVital()
-{
-	return this->alive;
-}
 
 // Combat
 
