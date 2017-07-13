@@ -37,3 +37,15 @@ int Weapon::getDamage()
 {
 	return this->damage;
 }
+
+bool Weapon::isNull()
+{
+	if (this->getName() == "NULL")
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

@@ -2,14 +2,14 @@
 
 Location::Location()
 {
-	this-> name = "NULL";
-	id = 0;
+	this->name = "NULL";
+	this->id = 0;
 }
 
-Location::Location(string p_name)
+Location::Location(string p_name, int p_id)
 {
 	this->name = p_name;
-	id = 0;
+	this->id = p_id;
 }
 
 void Location::addNeighbour(Location pNeighbour)

@@ -14,7 +14,7 @@ private:
 	vector<Location> neighbours;
 public:
 	Location();
-	Location(string p_name);
+	Location(string, int);
 	string getName();
 	void addNeighbour(Location pNeighbour);
 	vector<Location> getNeighbours();

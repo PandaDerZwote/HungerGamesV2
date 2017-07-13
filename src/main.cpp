@@ -5,16 +5,18 @@
 #include "Contestant.hpp"
 #include "Location.hpp"
 #include "Contest.hpp"
+#include "World.hpp"
 
 using namespace std;
 
 int main()
 {
 	// Initiate
-	vector<Location> world;
-	vector<Contestant> cast;
+	World world;
+	vector<Contestant> cast = contestantInit(world);
 	vector<Contestant> survivors;
-	init(&world, &cast);
+	init(&cast);
+
 	// Contest
 	setup(&cast);
 	Contestant winner("Nobody");
@@ -28,6 +30,7 @@ int main()
 			if (cast[i].checkVital())
 			{
 				string output = "";
+
 				// Test if last survivor
 				bool last_survivor = true;
 				for (unsigned int j = 0; j < cast.size(); j++)
@@ -41,10 +44,11 @@ int main()
 				{
 					break;
 				}
+
 				// Turn
 				//insert items
 				locationSwap(&cast[i], world);
-				output = locationEvent(&cast[i]);
+				output = locationEvent(&cast[i], world);
 				if (cast[i].checkVital() && cast[i].getActionPoints() == 1)
 				{
 					//insert interaction

@@ -5,7 +5,7 @@ Contestant::Contestant(string p_name)
 	this->name = p_name;
 	this->health = 5;
 	this->alive = true;
-	Location start("blank");
+	Location start("NULL", 0);
 	this->location = start;
 	this->gender = "m";
 	this->action_points = 1;
@@ -64,6 +64,13 @@ void Contestant::setHealth(int p_health)
 bool Contestant::checkVital()
 {
 	return this->alive;
+}
+
+void Contestant::die()
+{
+	this->setHealth(0);
+	Location l;
+	this->setLocation(l);
 }
 
 // ActionPoints

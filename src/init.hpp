@@ -11,13 +11,15 @@
 #include "Random.hpp"
 #include "Location.hpp"
 #include "Contestant.hpp"
+#include "LocationController.hpp"
+#include "World.hpp"
 
-void init(vector<Location> *world, vector<Contestant> *cast);
+void init(vector<Contestant> *cast);
 
 void random_init();
 
-void location_init(vector<Location> *world);
+//void location_init(vector<Location> *world);
 
-void contestant_init(vector<Contestant> *cast, vector<Location> *world);
+vector<Contestant> contestantInit(World);
 
 #endif /* INIT_HPP_ */

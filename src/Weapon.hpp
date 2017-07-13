@@ -19,12 +19,15 @@ private:
 	string name;
 	int damage, durability;
 public:
+	// Constructors
 	Weapon(string p_name, int p_damage, int p_durability);
 	Weapon();
-	bool durabilityTest();
-	bool nullWeapon();
+	// Get and Set
 	string getName();
 	int getDamage();
+	// Tests
+	bool durabilityTest();
+	bool isNull();
 };
 
 

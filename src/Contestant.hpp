@@ -34,6 +34,7 @@ public:
 	int getHealth();
 	void setHealth(int);
 	bool checkVital();
+	void die();
 	// Action Points
 	int getActionPoints();
 	void setActionPoints(int);

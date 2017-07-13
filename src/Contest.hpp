@@ -8,15 +8,14 @@
 #include "Weapon.hpp"
 #include "Item.hpp"
 #include "Random.hpp"
+#include "WeaponController.hpp"
+#include "LocationController.hpp"
+#include "World.hpp"
 
-using namespace std;
+void setup(std::vector<Contestant> *cast);
 
-void setup(vector<Contestant> *cast);
+void locationSwap(Contestant*, World);
 
-void locationSwap(Contestant *actor, vector<Location> world);
-
-string locationEvent(Contestant *actor);
-
-Weapon acquireWeapon();
+string locationEvent(Contestant*, World);
 
 #endif /* CONTEST_HPP_ */
