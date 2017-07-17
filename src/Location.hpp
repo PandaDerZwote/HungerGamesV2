@@ -4,22 +4,29 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
-class Location
-{
+class Location {
 private:
 	int id;
-	string name;
-	vector<Location> neighbours;
+	std::string name;
+	std::vector<Location> neighbours;
 public:
+	// Constructors
 	Location();
-	Location(string, int);
-	string getName();
-	void addNeighbour(Location pNeighbour);
-	vector<Location> getNeighbours();
-	void setId(int p_id);
+	Location(std::string, int);
+	// Name
+	void setName(std::string);
+	std::string getName();
+	// ID
+	void setId(int);
 	int getId();
+	// Neighbours
+	void addNeighbour(Location);
+	std::vector<Location> getNeighbours();
 };
 
+class LocationCornucopia {
+public:
+	virtual ~LocationCornucopia();
+};
 #endif /* LOCATION_HPP_ */
+

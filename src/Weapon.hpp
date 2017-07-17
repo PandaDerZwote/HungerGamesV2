@@ -26,8 +26,9 @@ public:
 	string getName();
 	int getDamage();
 	// Tests
-	bool durabilityTest();
 	bool isNull();
+	// Intrinsic Methods
+	bool durabilityTest();
 };
 
 

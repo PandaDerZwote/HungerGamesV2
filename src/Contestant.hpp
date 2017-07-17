@@ -14,7 +14,7 @@ class Contestant
 {
 private:
 	string name, pic_path, gender;
-	int health, action_points;
+	int health, action_points, id;
 	Weapon weapon;
 	vector<Item> inventory;
 	bool alive;
@@ -24,6 +24,8 @@ public:
 	Contestant(string);
 	void addPic (string);
 	string getName();
+	void setId(int);
+	int getId();
 	// Location
 	Location getLocation();
 	void setLocation(Location);

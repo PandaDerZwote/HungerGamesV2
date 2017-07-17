@@ -21,12 +21,12 @@ void setup(vector<Contestant> *cast)
 	cout << "The setup phase has ended!" << endl << endl;
 }
 
-void locationSwap(Contestant *actor, World world)
+void locationSwap(Contestant *actor, Game world)
 {
 	actor->setLocation(world.location_controller.getRandomNeighbourOrSelf(actor->getLocation()));
 }
 
-string locationEvent(Contestant *actor, World world)
+string locationEvent(Contestant *actor, Game world)
 {
 	// Declare variables
 	string output;

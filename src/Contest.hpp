@@ -4,18 +4,18 @@
 #include <iostream>
 #include <vector>
 #include "Contestant.hpp"
+#include "Game.hpp"
 #include "Location.hpp"
 #include "Weapon.hpp"
 #include "Item.hpp"
 #include "Random.hpp"
 #include "WeaponController.hpp"
 #include "LocationController.hpp"
-#include "World.hpp"
 
 void setup(std::vector<Contestant> *cast);
 
-void locationSwap(Contestant*, World);
+void locationSwap(Contestant*, Game);
 
-string locationEvent(Contestant*, World);
+string locationEvent(Contestant*, Game);
 
 #endif /* CONTEST_HPP_ */

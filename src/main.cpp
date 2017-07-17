@@ -5,33 +5,34 @@
 #include "Contestant.hpp"
 #include "Location.hpp"
 #include "Contest.hpp"
-#include "World.hpp"
+#include "Game.hpp"
 
 using namespace std;
 
 int main()
 {
 	// Initiate
-	World world;
+	Game world;
 	vector<Contestant> cast = contestantInit(world);
 	vector<Contestant> survivors;
 	init(&cast);
+	Contestant winner("Nobody");
+	int day = 1;
 
 	// Contest
 	setup(&cast);
-	Contestant winner("Nobody");
-	int day = 1;
 	while (winner.getName() == "Nobody")
 	{
+		// Output - Current Day
 		cout << " - DAY " << day << " -" << endl;
-		unsigned int cast_alive = cast.size();
-		for (unsigned int i = 0; i < cast_alive; i++)
+		//
+		for (unsigned int i = 0; i < cast.size(); i++)
 		{
 			if (cast[i].checkVital())
 			{
 				string output = "";
 
-				// Test if last survivor
+				// Test if last survivor, no actions necessary if true.
 				bool last_survivor = true;
 				for (unsigned int j = 0; j < cast.size(); j++)
 				{
@@ -61,11 +62,9 @@ int main()
 				}
 			}
 		}
-		/*string input;
-		cout << "To continue, type anything" << endl;
-		cin >> input;
-		*/
 		cout << endl;
+
+		// Aftermath
 		day++;
 		survivors.clear();
 		// Check survivors and refresh Action Points.

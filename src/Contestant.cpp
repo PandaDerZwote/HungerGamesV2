@@ -9,6 +9,7 @@ Contestant::Contestant(string p_name)
 	this->location = start;
 	this->gender = "m";
 	this->action_points = 1;
+	this->id = 0;
 }
 
 void Contestant::addPic(string p_pic_path)
@@ -19,6 +20,16 @@ void Contestant::addPic(string p_pic_path)
 string Contestant::getName()
 {
 	return name;
+}
+
+void Contestant::setId(int t_id)
+{
+	this->id = t_id;
+}
+
+int Contestant::getId()
+{
+	return id;
 }
 
 // Location

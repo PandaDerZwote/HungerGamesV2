@@ -1,5 +1,7 @@
 #include "Location.hpp"
 
+using namespace std;
+
 Location::Location()
 {
 	this->name = "NULL";

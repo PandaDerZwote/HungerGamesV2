@@ -11,8 +11,8 @@
 #include "Random.hpp"
 #include "Location.hpp"
 #include "Contestant.hpp"
+#include "Game.hpp"
 #include "LocationController.hpp"
-#include "World.hpp"
 
 void init(vector<Contestant> *cast);
 
@@ -20,6 +20,6 @@ void random_init();
 
 //void location_init(vector<Location> *world);
 
-vector<Contestant> contestantInit(World);
+vector<Contestant> contestantInit(Game);
 
 #endif /* INIT_HPP_ */
