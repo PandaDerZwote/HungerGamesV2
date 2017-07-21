@@ -45,7 +45,7 @@ public:
 	Weapon getWeapon();
 	bool checkWeapon();
 	// Combat
-	void combatRound(Contestant*);
+	bool combatRound(Contestant*);
 };
 
 

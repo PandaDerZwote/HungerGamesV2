@@ -122,35 +122,43 @@ bool Contestant::checkWeapon()
 
 // Combat
 
-void Contestant::combatRound(Contestant *p_enemy)
+bool Contestant::combatRound(Contestant *t_enemy)
 {
 	// Determine combat bonus for both sides
+	bool winner = true;
 	int combat_bonus = this->getWeapon().getDamage();
-	int enemy_combat_bonus = p_enemy->getWeapon().getDamage();
+	int enemy_combat_bonus = t_enemy->getWeapon().getDamage();
+
 	// Test if Weapon breaks
 	if (this->getWeapon().durabilityTest() == false)
 	{
 		Weapon null_weapon("NULL", 0, 0);
 		this->setWeapon(null_weapon);
 	}
-	if (p_enemy->getWeapon().durabilityTest() == false)
+	if (t_enemy->getWeapon().durabilityTest() == false)
 	{
 		Weapon null_weapon("NULL", 0, 0);
-		p_enemy->setWeapon(null_weapon);
+		t_enemy->setWeapon(null_weapon);
 	}
+
 	// Determine Combat Roll
 	int combat_roll = setRandom(6) + combat_bonus;
 	int enemy_combat_roll = setRandom(6) + enemy_combat_bonus;
+
 	// Determine Result
 	int result = combat_roll - enemy_combat_roll;
 	if (result < 0)
 	{
 		this->setHealth(this->getHealth() + result);
-		//cout << pEnemy->name << " deals " << result * -1 << " damage to " << this->name << " (" << this->getHealth() << " remaining)" << endl;
+		winner = false;
 	}
 	if (result > 0)
 	{
-		p_enemy->setHealth(p_enemy->getHealth() - result);
-		//cout << this->name << " deals " << result << " damage to " << pEnemy->name << " (" << pEnemy->getHealth() << " remaining)" << endl;
+		t_enemy->setHealth(t_enemy->getHealth() - result);
 	}
+
+
+	setActionPoints(0);
+	t_enemy->setActionPoints(0);
+	return winner;
 }

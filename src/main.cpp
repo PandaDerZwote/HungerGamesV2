@@ -11,6 +11,13 @@ using namespace std;
 
 int main()
 {
+	Game game;
+	game.play();
+	return 0;
+}
+
+/*int main()
+{
 	// Initiate
 	Game world;
 	vector<Contestant> cast = contestantInit(world);
@@ -82,4 +89,4 @@ int main()
 		}
 	}
 	cout << "And the winner is " << survivors[0].getName() << "!";
-}
+}*/

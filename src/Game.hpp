@@ -19,6 +19,9 @@ public:
 	// Constructor
 	Game();
 
+	// Game
+	void play();
+
 	// Turn
 	string turn(Contestant*);
 	// Submethods of turn
